@@ -7,11 +7,17 @@ const res = require('express/lib/response');
 //Points to to the global env
 dotenv.config({ path: './config/config.env' });
 
+//Routes
+const transactions = require('./routes/transactions');
+
 //Initialise the express server
 const app = express();
 
 //Initial routes
-app.get('/', (req, res) => res.send('Hello World!'));
+// app.get('/', (req, res) => res.send('Hello World!'));
+
+//Mount Route
+app.use('/api/v1/transactions', transactions);
 
 const PORT = process.env.PORT || 5000;
 
