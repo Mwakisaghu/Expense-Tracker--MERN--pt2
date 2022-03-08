@@ -3,9 +3,13 @@ const dotenv = require('dotenv'); // Help create our global environments
 const colors = require('colors'); // Colors added to our console
 const morgan = require('morgan'); // Helps with our login
 const res = require('express/lib/response');
+const connectDB = require('./config/db');
 
 //Points to to the global env
 dotenv.config({ path: './config/config.env' });
+
+//Connect to DB
+connectDB();
 
 //Routes
 const transactions = require('./routes/transactions');
