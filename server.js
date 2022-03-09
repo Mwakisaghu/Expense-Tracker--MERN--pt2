@@ -17,6 +17,9 @@ const transactions = require('./routes/transactions');
 //Initialise the express server
 const app = express();
 
+// Allows use of Body Parser
+app.use(express.json());
+
 //Initial routes
 // app.get('/', (req, res) => res.send('Hello World!'));
 

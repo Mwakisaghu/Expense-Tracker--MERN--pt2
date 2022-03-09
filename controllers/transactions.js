@@ -13,7 +13,7 @@ exports.getTransactions = async (req, res, next) => {
       data: transactions,
     });
   } catch (err) {
-    return res.send(500).json({
+    return res.status(500).json({
       sucess: false,
       error: 'Server Error',
     });
@@ -23,8 +23,31 @@ exports.getTransactions = async (req, res, next) => {
 //@desc       Add transaction
 //@routes     POST/api/v1/transactions
 //access      Public
-exports.addTransaction = (req, res, next) => {
-  res.send('POST Transaction');
+exports.addTransaction = async (req, res, next) => {
+  try {
+    const { text, amount } = req.body;
+
+    const transaction = await Transaction.create(req.body);
+
+    return res.status(201).json({
+      sucess: true,
+      data: transaction,
+    });
+  } catch (err) {
+    if (err.name === 'ValidationError') {
+      const messages = Object.values(err.errors).map((val) => val.message);
+
+      return res.status(400).json({
+        sucess: false,
+        error: messages,
+      });
+    } else {
+      return res.status(500).json({
+        sucess: false,
+        error: 'Server Error',
+      });
+    }
+  }
 };
 
 //@desc       Delete transaction
