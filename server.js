@@ -20,6 +20,11 @@ const app = express();
 // Allows use of Body Parser
 app.use(express.json());
 
+//Implement morgan
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
+
 //Initial routes
 // app.get('/', (req, res) => res.send('Hello World!'));
 
