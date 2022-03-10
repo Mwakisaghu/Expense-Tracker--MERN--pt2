@@ -35,11 +35,20 @@ export const GlobalProvider = ({ children }) => {
   }
 
   //Delete Transaction action
-  const deleteTransaction = (id) => {
-    dispatch({
-      type: DELETE_TRANSACTION,
-      payload: id,
-    });
+  const deleteTransaction = async (id) => {
+    try {
+      await axios.delete(`/api/v1/transactions/${id}`);
+
+      dispatch({
+        type: DELETE_TRANSACTION,
+        payload: id,
+      });
+    } catch (err) {
+      dispatch({
+        type: 'TRANSACTION_ERROR',
+        payload: err.response.data.error,
+      });
+    }
   };
 
   //Add Transaction action
