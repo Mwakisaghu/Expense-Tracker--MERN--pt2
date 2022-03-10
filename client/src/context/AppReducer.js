@@ -3,6 +3,12 @@ import { DELETE_TRANSACTION, ADD_TRANSACTION } from './types';
 
 export default (state, action) => {
   switch (action.type) {
+    case 'GET_TRANSACTIONS':
+      return {
+        ...state,
+        loading: false,
+        transactions: action.payload,
+      };
     case DELETE_TRANSACTION:
       return {
         ...state,
@@ -14,6 +20,11 @@ export default (state, action) => {
       return {
         ...state,
         transactions: [...state.transactions, action.payload],
+      };
+    case 'TRANSACTION_ERROR':
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;
